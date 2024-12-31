@@ -3,7 +3,6 @@
 /* eslint-disable no-unused-vars */
 import { StatusCodes } from 'http-status-codes';
 import { JwtPayload } from 'jsonwebtoken';
-import { USER_ROLES } from '../../../enums/user';
 import ApiError from '../../../errors/ApiError';
 import { emailHelper } from '../../../helpers/emailHelper';
 import { emailTemplate } from '../../../shared/emailTemplate';
@@ -12,14 +11,24 @@ import generateOTP from '../../../util/generateOTP';
 import { IUser } from './user.interface';
 import { User } from './user.model';
 import unlinkFile from '../../../shared/unlinkFile';
+import { TDriver } from '../driver/driver.interface';
+import { Driver } from '../driver/driver.model';
 
 const createUserFromDb = async (payload: IUser) => {
-  payload.role = USER_ROLES.USER;
   const result = await User.create(payload);
 
   if (!result) {
     throw new ApiError(StatusCodes.BAD_REQUEST, "User doesn't exist!");
   }
+
+  // const userData: Partial<TDriver> = {
+  //   user: result._id,
+  //   email: result.email,
+  // };
+
+  // if (payload.role === 'DRIVER') {
+  //   await Driver.create(userData);
+  // }
 
   const otp = generateOTP();
   const emailValues = {
@@ -44,8 +53,52 @@ const createUserFromDb = async (payload: IUser) => {
     throw new ApiError(StatusCodes.NOT_FOUND, 'User not found for update');
   }
 
+  // If the user is a DRIVER, create an entry in the Driver collection
+  if (payload.role === 'DRIVER') {
+    const driverData: Partial<TDriver> = {
+      user: result._id,
+      email: result.email,
+    };
+    await Driver.create(driverData);
+  }
+
   return result;
 };
+
+// const createDriver = async (payload: TDriver) => {
+//   const userData: Partial<IUser> = {};
+
+//   const result = await User.create(userData);
+
+//   if (!result) {
+//     throw new ApiError(StatusCodes.BAD_REQUEST, "User doesn't exist!");
+//   }
+
+//   const otp = generateOTP();
+//   const emailValues = {
+//     name: result.name,
+//     otp,
+//     email: result.email,
+//   };
+
+//   const accountEmailTemplate = emailTemplate.createAccount(emailValues);
+//   emailHelper.sendEmail(accountEmailTemplate);
+
+//   // Update user with authentication details
+//   const authentication = {
+//     oneTimeCode: otp,
+//     expireAt: new Date(Date.now() + 20 * 60000),
+//   };
+//   const updatedUser = await User.findOneAndUpdate(
+//     { _id: result._id },
+//     { $set: { authentication } },
+//   );
+//   if (!updatedUser) {
+//     throw new ApiError(StatusCodes.NOT_FOUND, 'User not found for update');
+//   }
+
+//   return result;
+// };
 
 const getAllUsers = async () => {
   const result = await User.find();

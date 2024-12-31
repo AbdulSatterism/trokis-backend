@@ -20,7 +20,7 @@ router.get('/all-user', auth(USER_ROLES.ADMIN), UserController.getAllUser);
 router.post(
   '/update-profile',
   fileUploadHandler(),
-  auth(USER_ROLES.USER, USER_ROLES.ADMIN),
+  auth(USER_ROLES.USER, USER_ROLES.ADMIN, USER_ROLES.DRIVER),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       // Parse the body if it contains data in stringified JSON format

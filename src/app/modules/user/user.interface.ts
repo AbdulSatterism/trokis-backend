@@ -6,16 +6,10 @@ export type IUser = {
   name: string;
   email: string;
   phone: string;
-  role: 'ADMIN' | 'USER';
-  gender: 'MALE' | 'FEMALE' | 'OTHERS';
-  birthday: string;
+  role: 'ADMIN' | 'USER' | 'DRIVER';
   password: string;
-  address?: string;
   image?: string;
-  school?: string;
-  instagram?: string;
-  status: 'active' | 'delete';
-  groupLimit?: number;
+  address?: string;
   authentication?: {
     isResetPassword: boolean;
     oneTimeCode: number;
@@ -23,6 +17,28 @@ export type IUser = {
   };
   verified: boolean;
 };
+
+// export type IUser = {
+//   name: string;
+//   email: string;
+//   phone: string;
+//   role: 'ADMIN' | 'USER';
+//   gender: 'MALE' | 'FEMALE' | 'OTHERS';
+//   birthday: string;
+//   password: string;
+//   address?: string;
+//   image?: string;
+//   school?: string;
+//   instagram?: string;
+//   status: 'active' | 'delete';
+//   groupLimit?: number;
+//   authentication?: {
+//     isResetPassword: boolean;
+//     oneTimeCode: number;
+//     expireAt: Date;
+//   };
+//   verified: boolean;
+// };
 
 export type UserModal = {
   isExistUserById(id: string): any;

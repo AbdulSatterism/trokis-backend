@@ -268,6 +268,7 @@ const verifyEmailToDB = async (payload: IVerifyEmail) => {
     // }
 
     // const createToken = cryptoToken();
+
     await ResetToken.create({
       user: isExistUser._id,
       token: accessToken,

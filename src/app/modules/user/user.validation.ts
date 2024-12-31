@@ -5,16 +5,13 @@ const createUserSchema = z.object({
     name: z.string().min(1, 'Name is required'),
     email: z.string().email('Invalid email address'),
     phone: z.string(),
-    gender: z.enum(['MALE', 'FEMALE', 'OTHERS']),
-    birthday: z.string(),
     password: z.string().min(6, 'Password must have at least 6 characters'),
   }),
 });
 
 const updateUserProfileSchema = z.object({
-  school: z.string().optional(),
+  phone: z.string().optional(),
   address: z.string().optional(),
-  instagram: z.string().optional(),
   name: z.string().optional(),
 });
 

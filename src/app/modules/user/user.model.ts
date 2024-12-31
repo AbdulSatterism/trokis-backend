@@ -15,8 +15,7 @@ const userSchema = new Schema<IUser, UserModal>(
     },
     role: {
       type: String,
-      enum: Object.values(USER_ROLES),
-      required: true,
+      default: USER_ROLES.USER,
     },
     email: {
       type: String,
@@ -34,39 +33,21 @@ const userSchema = new Schema<IUser, UserModal>(
       type: String,
       default: '',
     },
-    birthday: {
-      type: String,
-    },
     address: {
       type: String,
       default: '',
     },
-    school: {
-      type: String,
-      default: '',
-    },
-    groupLimit: {
-      type: Number,
-      default: 0,
-    },
+
+    // image: {
+    //   type: String,
+    //   default: '/images/user.jpg',
+    // },
     image: {
       type: String,
-      default: '/images/user.jpg',
-    },
-    instagram: {
-      type: String,
-      default: '',
+      default:
+        'https://img.freepik.com/free-psd/contact-icon-illustration-isolated_23-2151903337.jpg?t=st=1735636758~exp=1735640358~hmac=4b494c0f252b0758b2bb50bf485a2c06483a9d47975e1327ec4030017be7e8f0&w=400',
     },
 
-    status: {
-      type: String,
-      enum: ['active', 'delete'],
-      default: 'active',
-    },
-    gender: {
-      type: String,
-      enum: ['MALE', 'FEMALE', 'OTHERS'],
-    },
     verified: {
       type: Boolean,
       default: false,
