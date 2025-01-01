@@ -44,8 +44,7 @@ const userSchema = new Schema<IUser, UserModal>(
     // },
     image: {
       type: String,
-      default:
-        'https://img.freepik.com/free-psd/contact-icon-illustration-isolated_23-2151903337.jpg?t=st=1735636758~exp=1735640358~hmac=4b494c0f252b0758b2bb50bf485a2c06483a9d47975e1327ec4030017be7e8f0&w=400',
+      default: '/images/driver.jpg',
     },
 
     verified: {
