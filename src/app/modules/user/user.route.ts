@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import express, { NextFunction, Request, Response } from 'express';
 import { USER_ROLES } from '../../../enums/user';
@@ -7,6 +8,7 @@ import fileUploadHandler from '../../middlewares/fileUploadHandler';
 import { UserController } from './user.controller';
 import { UserValidation } from './user.validation';
 import validateRequest from '../../middlewares/validateRequest';
+
 const router = express.Router();
 
 router.post(
@@ -49,6 +51,48 @@ router.post(
     }
   },
 );
+
+// router.post(
+//   '/update-profile',
+//   fileUploadHandler(),
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     try {
+//       let validatedData = {};
+
+//       // Parse and validate JSON data from the body
+//       if (req.body.data) {
+//         try {
+//           validatedData = JSON.parse(req.body.data);
+//         } catch (error) {
+//           return next(
+//             new ApiError(StatusCodes.BAD_REQUEST, 'Invalid JSON data'),
+//           );
+//         }
+//       }
+
+//       // Process uploaded files
+//       if (req.files) {
+//         const files = req.files as Record<string, Express.Multer.File[]>;
+//         const filePaths: Record<string, string> = {};
+
+//         for (const key in files) {
+//           if (files[key] && files[key].length > 0) {
+//             filePaths[key] = files[key][0].path; // Store the first file's path for each field
+//           }
+//         }
+
+//         // Merge uploaded file paths into validated data
+//         validatedData = { ...validatedData, ...filePaths };
+//       }
+
+//       // Pass the validated data to the controller
+//       req.body = validatedData;
+//       await UserController.updateProfile(req, res, next);
+//     } catch (error) {
+//       next(error);
+//     }
+//   },
+// );
 
 router.get(
   '/user',

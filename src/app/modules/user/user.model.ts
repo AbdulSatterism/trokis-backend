@@ -44,7 +44,7 @@ const userSchema = new Schema<IUser, UserModal>(
     // },
     image: {
       type: String,
-      default: '/images/driver.jpg',
+      default: '',
     },
 
     verified: {

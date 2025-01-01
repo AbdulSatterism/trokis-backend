@@ -65,41 +65,6 @@ const createUserFromDb = async (payload: IUser) => {
   return result;
 };
 
-// const createDriver = async (payload: TDriver) => {
-//   const userData: Partial<IUser> = {};
-
-//   const result = await User.create(userData);
-
-//   if (!result) {
-//     throw new ApiError(StatusCodes.BAD_REQUEST, "User doesn't exist!");
-//   }
-
-//   const otp = generateOTP();
-//   const emailValues = {
-//     name: result.name,
-//     otp,
-//     email: result.email,
-//   };
-
-//   const accountEmailTemplate = emailTemplate.createAccount(emailValues);
-//   emailHelper.sendEmail(accountEmailTemplate);
-
-//   // Update user with authentication details
-//   const authentication = {
-//     oneTimeCode: otp,
-//     expireAt: new Date(Date.now() + 20 * 60000),
-//   };
-//   const updatedUser = await User.findOneAndUpdate(
-//     { _id: result._id },
-//     { $set: { authentication } },
-//   );
-//   if (!updatedUser) {
-//     throw new ApiError(StatusCodes.NOT_FOUND, 'User not found for update');
-//   }
-
-//   return result;
-// };
-
 const getAllUsers = async () => {
   const result = await User.find();
   const count = await User.countDocuments();
